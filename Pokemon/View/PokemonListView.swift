@@ -19,7 +19,6 @@ struct PokemonRow: View {
 }
 
 struct PokemonListView: View {
-    let pokemons = ["A", "B"]
     var body: some View {
         List {
             PokemonRow(pokemonName: "Bulbasaur")

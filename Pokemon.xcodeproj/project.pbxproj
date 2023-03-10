@@ -18,6 +18,7 @@
 		E9E9F80A29BBCABA001B0E81 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E9E9F80929BBCABA001B0E81 /* Kingfisher */; };
 		E9E9F80C29BBCD1D001B0E81 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9F80B29BBCD1D001B0E81 /* BarView.swift */; };
 		E9E9F80E29BBCF51001B0E81 /* BarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9F80D29BBCF51001B0E81 /* BarsView.swift */; };
+		E9E9F81129BBD102001B0E81 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9F81029BBD102001B0E81 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		E9E9F80629BBC5CF001B0E81 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		E9E9F80B29BBCD1D001B0E81 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		E9E9F80D29BBCF51001B0E81 /* BarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarsView.swift; sourceTree = "<group>"; };
+		E9E9F81029BBD102001B0E81 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				E9E9F7FC29BBB821001B0E81 /* View */,
 				E9E9F7FD29BBB828001B0E81 /* ViewModel */,
 				E9E9F7FE29BBB856001B0E81 /* Services */,
+				E9E9F80F29BBD0D1001B0E81 /* Helpers */,
 				E9E9F7FA29BBB60F001B0E81 /* Resources */,
 				E9E9F7F229BBB415001B0E81 /* Preview Content */,
 			);
@@ -133,6 +136,14 @@
 				E9E9F7F029BBB415001B0E81 /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		E9E9F80F29BBD0D1001B0E81 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E9E9F81029BBD102001B0E81 /* NetworkMonitor.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +229,7 @@
 				E9E9F80E29BBCF51001B0E81 /* BarsView.swift in Sources */,
 				E9E9F7ED29BBB414001B0E81 /* PokemonApp.swift in Sources */,
 				E9E9F80329BBBBDF001B0E81 /* PokemonDetail.swift in Sources */,
+				E9E9F81129BBD102001B0E81 /* NetworkMonitor.swift in Sources */,
 				E9E9F80129BBBB05001B0E81 /* PokemonList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
