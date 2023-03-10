@@ -51,9 +51,11 @@
 		E9E9F7EB29BBB414001B0E81 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
-				E9E9F7EC29BBB414001B0E81 /* PokemonApp.swift */,
-				E9E9F7EE29BBB414001B0E81 /* ContentView.swift */,
-				E9E9F7F029BBB415001B0E81 /* Assets.xcassets */,
+				E9E9F7FB29BBB812001B0E81 /* Model */,
+				E9E9F7FC29BBB821001B0E81 /* View */,
+				E9E9F7FD29BBB828001B0E81 /* ViewModel */,
+				E9E9F7FE29BBB856001B0E81 /* Services */,
+				E9E9F7FA29BBB60F001B0E81 /* Resources */,
 				E9E9F7F229BBB415001B0E81 /* Preview Content */,
 			);
 			path = Pokemon;
@@ -65,6 +67,52 @@
 				E9E9F7F329BBB415001B0E81 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E9E9F7FA29BBB60F001B0E81 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E9E9F7FF29BBB86D001B0E81 /* Assets */,
+				E9E9F7EC29BBB414001B0E81 /* PokemonApp.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E9E9F7FB29BBB812001B0E81 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E9E9F7FC29BBB821001B0E81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9E9F7EE29BBB414001B0E81 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E9E9F7FD29BBB828001B0E81 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E9E9F7FE29BBB856001B0E81 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E9E9F7FF29BBB86D001B0E81 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E9E9F7F029BBB415001B0E81 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
