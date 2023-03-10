@@ -40,11 +40,15 @@ struct PokemonDetailView: View {
                 
                 HStack {
                     Text("Stats")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 20, weight: .semibold))
                         .padding(.leading)
                     
                     Spacer()
                 }
+                
+//                BarsView(pokemon: pokemon)
+//                    .padding(.trailing)
+//                    .padding(.top, -16)
             }
         }
     }
