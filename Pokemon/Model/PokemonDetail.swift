@@ -1,5 +1,5 @@
 //
-//  PokemonDetails.swift
+//  PokemonDetail.swift
 //  Pokemon
 //
 //  Created by Pavel on 10.03.23.
@@ -7,7 +7,7 @@
 
 // URL: https://pokeapi.co/api/v2/pokemon/{id}/
 
-struct PokemonDetails: Codable {
+struct PokemonDetail: Codable {
     let name: String?
     let height: Int?
     let weight: Int?
