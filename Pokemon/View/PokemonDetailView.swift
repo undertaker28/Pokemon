@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct PokemonDetailView: View {
     @StateObject private var pokemonDetailViewModel: PokemonDetailViewModel

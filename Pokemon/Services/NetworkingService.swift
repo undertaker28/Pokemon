@@ -9,8 +9,12 @@ import Foundation
 import Combine
 
 enum NetworkingErrors: Error {
-    case badURLResponse(url: URL)
-    case unknow
+    case badRequest(url: URL)
+    case unauthorized(url: URL)
+    case notFound(url: URL)
+    case serverError(url: URL)
+    case unprocessableRequest(url: URL)
+    case unknown(url: URL)
 }
 
 final class NetworkingService {
@@ -24,10 +28,9 @@ final class NetworkingService {
     
     static func handleURLResponse(output: URLSession.DataTaskPublisher.Output, url: URL) throws -> Data {
         let folderName = "pokemonCash"
-        let fileName = "pokemonOfflineData"
-        guard let response = output.response as? HTTPURLResponse,
-              response.statusCode >= 200 && response.statusCode < 300 else {
-            throw NetworkingErrors.badURLResponse(url: url)
+        if let response = output.response as? HTTPURLResponse,
+              response.statusCode < 200 && response.statusCode > 300 {
+            throw NetworkingErrors.init(code: response.statusCode, url: url)
         }
         FileSystemService.instance.saveData(dataToSave: output.data, fileName: String(output.data.count), folderName: folderName)
         return output.data

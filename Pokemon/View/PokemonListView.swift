@@ -63,14 +63,14 @@ struct PokemonListView: View {
                             HStack(spacing: 10) {
                                 Text("Cellular on")
                                     .foregroundColor(.yellow)
-                                Image(systemName: "candybarphone")
+                                Image(systemName: "antenna.radiowaves.left.and.right")
                             }
                         }
                         if networkMonitor.isDisconnected {
                             HStack(spacing: 10) {
                                 Text("No connection")
                                     .foregroundColor(.red)
-                                Image(systemName: "antenna.radiowaves.left.and.right.slash")
+                                Image(systemName: "wifi.slash")
                             }
                         }
                     }

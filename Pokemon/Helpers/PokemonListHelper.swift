@@ -22,7 +22,7 @@ final class PokemonListHelper {
         FileSystemService.instance.createOfflineFileIfNeeded()
         
         guard let dataOfOfflineDictionary = FileSystemService.instance.getData(fileName: fileName, folderName: folderName) else { return }
-        var offlineDictionary = FileSystemService.instance.dataToDictionary(data: dataOfOfflineDictionary)
+        let offlineDictionary = FileSystemService.instance.dataToDictionary(data: dataOfOfflineDictionary)
         
         guard let url = URL(string: url) else { return }
         
