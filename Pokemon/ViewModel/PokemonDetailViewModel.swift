@@ -10,10 +10,10 @@ import Combine
 import SwiftUI
 
 final class PokemonDetailViewModel: ObservableObject {
-    @Published var detail: PokemonDetail?
-    @Published var image: UIImage? = nil
-    @Published var isLoading: Bool = false
-    @Published var isLoadingImage: Bool = false
+    @Published private(set) var detail: PokemonDetail?
+    @Published private(set) var image: UIImage? = nil
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var isLoadingImage: Bool = false
     
     let dataService: PokemonDetailHelper
     

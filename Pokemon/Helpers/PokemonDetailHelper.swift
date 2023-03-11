@@ -10,8 +10,8 @@ import Combine
 import SwiftUI
 
 final class PokemonDetailHelper {
-    @Published var image: UIImage? = nil
-    @Published var detail: PokemonDetail?
+    @Published private(set) var image: UIImage? = nil
+    @Published private(set) var detail: PokemonDetail?
     
     var imageSubscription: AnyCancellable?
     var pokemonStatsSubcription: AnyCancellable?

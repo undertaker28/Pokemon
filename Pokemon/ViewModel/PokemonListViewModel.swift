@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class PokemonListViewModel: ObservableObject {
-    @Published var pokemonListPage: PokemonList?
+    @Published private(set) var pokemonListPage: PokemonList?
     
     let dataService = PokemonListHelper(url: "https://pokeapi.co/api/v2/pokemon")
     
@@ -17,6 +17,10 @@ final class PokemonListViewModel: ObservableObject {
     
     init() {
         addSubscribers()
+    }
+    
+    func getPokemons() -> [PokemonInfo] {
+        return pokemonListPage?.results ?? []
     }
     
     private func addSubscribers() {

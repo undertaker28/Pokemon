@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-struct PokemonRow: View {
-    private(set) var pokemonName: String
-    
-    var body: some View {
-        HStack {
-            Image("Pokeball")
-            Text(pokemonName)
-                .font(Font.custom("MarkPro-Bold", size: 18))
-        }
-    }
-}
-
 struct PokemonListView: View {
     @State private var searchText: String = ""
     @StateObject private var pokemonListViewModel = PokemonListViewModel()
@@ -26,13 +14,18 @@ struct PokemonListView: View {
     
     var body: some View {
         VStack {
-            List((searchText.isEmpty ?  pokemonListViewModel.pokemonListPage?.results ?? [] : pokemonListViewModel.pokemonListPage?.results.filter({ $0.name.contains(searchText.lowercased()) })) ?? [], id: \.url) { pokemon in
+            List((searchText.isEmpty ?  pokemonListViewModel.getPokemons() : pokemonListViewModel.getPokemons().filter({ $0.name.contains(searchText.lowercased()) })), id: \.url) { pokemon in
                 NavigationLink(destination: PokemonDetailView(url: pokemon.url)) {
-                    PokemonRow(pokemonName: pokemon.name.capitalized)
+                    HStack {
+                        Image("Pokeball")
+                        Text(pokemon.name.capitalized)
+                            .font(Font.custom("MarkPro-Bold", size: 18))
+                    }
                 }
             }
             .searchable(text: $searchText, prompt: "Looking for something...")
             .environment(\.defaultMinListRowHeight, 50)
+
             HStack {
                 Button {
                     pokemonListViewModel.dataService.getPage(url: pokemonListViewModel.pokemonListPage?.previous ?? "")

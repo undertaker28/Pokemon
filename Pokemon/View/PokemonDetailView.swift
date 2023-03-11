@@ -65,6 +65,6 @@ struct PokemonDetailView: View {
 
 struct PokemonDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetailView(url: "https://pokeapi.co/api/v2/pokemon/25/")
+        PokemonDetailView(url: "https://pokeapi.co/api/v2/pokemon/13/")
     }
 }

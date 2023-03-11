@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 final class PokemonListHelper {
-    @Published var pokemonListPage: PokemonList? = nil
-    var pokemonListPageSubscription: AnyCancellable?
+    @Published private(set) var pokemonListPage: PokemonList? = nil
+    private var pokemonListPageSubscription: AnyCancellable?
     private let folderName = "pokemonCash"
     private let fileName = "pokemonOfflineData"
     
@@ -29,7 +29,7 @@ final class PokemonListHelper {
         var loadFlag = false
         for item in offlineDictionary {
             if item.key == url.absoluteString {
-                print("The page is already in the dictionary", url.absoluteString)
+                // MARK: - The page is already in the dictionary
                 loadFlag = true
             }
         }

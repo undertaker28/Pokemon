@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct BarView: View {
+    @State private(set) var value: Double = 100.0
     private(set) var title: String = "Attack"
-    private(set) var value: Int = 100
     private(set) var color: Color = .blue
-
+    
     var body: some View {
         HStack {
             Text(title)
@@ -19,25 +19,40 @@ struct BarView: View {
                 .padding(.leading, 32)
                 .foregroundColor(.gray)
                 .frame(width: 100)
-
+            
             HStack {
-                Text("\(value)")
+                Text(floor(value) == value ? "\(Int(value))" : String(format: "%.1f", value))
                     .font(Font.custom("MarkPro-Bold", size: 18))
                     .frame(width: 50)
                     .padding(.trailing)
+                
+                ProgressBarView(value: $value, color: color)
+                    .frame(height: 20)
 
-                ZStack(alignment: .leading) {
-                    Capsule()
-                        .frame(width: 180, height: 20)
-                        .foregroundColor(Color(.systemGray5))
-
-                    Capsule()
-                        .frame(width: value > 180 ? CGFloat(value / 6) : CGFloat(value), height: 20)
-                        .foregroundColor(color)
-                }
                 Spacer()
             }
             .padding(.leading)
+        }
+    }
+}
+
+struct ProgressBarView: View {
+    @Binding var value: Double
+    private(set) var color: Color
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .opacity(0.3)
+                    .foregroundColor(Color(.systemGray3))
+                
+                Rectangle()
+                    .frame(width: min(CGFloat(self.value / 300) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    .foregroundColor(color)
+            }
+            .cornerRadius(45)
         }
     }
 }
