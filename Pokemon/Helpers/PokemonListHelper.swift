@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class PokemonPageService {
+final class PokemonListHelper {
     @Published var pokemonListPage: PokemonList? = nil
     var pokemonListPageSubscription: AnyCancellable?
     private let folderName = "pokemonCash"
