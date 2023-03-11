@@ -8,7 +8,7 @@
 import Foundation
 
 final class FileSystemService {
-    static let shared = FileSystemService()
+    static let instance = FileSystemService()
     private let folderName = "pokemonCash"
     private let fileName = "pokemonOfflineData"
     
@@ -31,23 +31,23 @@ final class FileSystemService {
     }
     
     func dataToDictionary(data: Data) -> [String: String] {
-        var jsonDictionary: [String: String] = [:]
+        var JSONDictionary: [String: String] = [:]
         do {
-            jsonDictionary = try JSONSerialization.jsonObject(with: data) as! [String: String]
+            JSONDictionary = try JSONSerialization.jsonObject(with: data) as! [String: String]
         } catch let error {
             print(error.localizedDescription)
         }
-        return jsonDictionary
+        return JSONDictionary
     }
     
     func dictionaryToData(dictionary: [String: String]) -> Data? {
-        var jsonData: Data?
+        var JSONData: Data?
         do {
-            jsonData = try JSONSerialization.data(withJSONObject: dictionary)
+            JSONData = try JSONSerialization.data(withJSONObject: dictionary)
         } catch let error {
             print(error.localizedDescription)
         }
-        return jsonData
+        return JSONData
     }
     
     func createOfflineFileIfNeeded() {
