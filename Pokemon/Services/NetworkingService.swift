@@ -29,9 +29,7 @@ final class NetworkingService {
               response.statusCode >= 200 && response.statusCode < 300 else {
             throw NetworkingErrors.badURLResponse(url: url)
         }
-        let dataOfOfflineDictionary = FileSystemService.instance.getData(fileName: fileName, folderName: folderName)
-        let offlineDictionary = FileSystemService.instance.dataToDictionary(data: dataOfOfflineDictionary!)
-        FileSystemService.instance.saveData(dataToSave: output.data, fileName: String(offlineDictionary.count), folderName: folderName)
+        FileSystemService.instance.saveData(dataToSave: output.data, fileName: String(output.data.count), folderName: folderName)
         return output.data
     }
     
