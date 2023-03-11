@@ -19,13 +19,68 @@ struct PokemonRow: View {
 }
 
 struct PokemonListView: View {
+    @StateObject var networkMonitor = NetworkMonitor()
+    
     var body: some View {
-        List {
-            PokemonRow(pokemonName: "Bulbasaur")
-            PokemonRow(pokemonName: "Ivysaur")
-            PokemonRow(pokemonName: "Venusaur")
+        VStack {
+            List(1...20, id: \.self) { i in
+                PokemonRow(pokemonName: "Bulbasaur")
+            }
+            .environment(\.defaultMinListRowHeight, 50)
+            HStack {
+                Button {
+                    // TODO: - Previous page
+                } label: {
+                    Text("Previous")
+                        .font(Font.custom("MarkPro-Bold", size: 18))
+                        .fixedSize()
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                Divider()
+                Button {
+                    // TODO: - Next page
+                } label: {
+                    Text("Next")
+                        .font(Font.custom("MarkPro-Bold", size: 18))
+                        .fixedSize()
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if networkMonitor.isConnected {
+                            HStack(spacing: 10) {
+                                Text("Wi-Fi on")
+                                    .foregroundColor(.green)
+                                Image(systemName: "wifi")
+                            }
+                        }
+                        if networkMonitor.isCellular {
+                            HStack(spacing: 10) {
+                                Text("Cellular on")
+                                    .foregroundColor(.yellow)
+                                Image(systemName: "candybarphone")
+                            }
+                        }
+                        if networkMonitor.isDisconnected {
+                            HStack(spacing: 10) {
+                                Text("No connection")
+                                    .foregroundColor(.red)
+                                Image(systemName: "antenna.radiowaves.left.and.right.slash")
+                            }
+                        }
+                    }
+                }
+            }
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .environment(\.defaultMinListRowHeight, 50)
+        .onAppear {
+            networkMonitor.startMonitoring()
+        }
+        .onDisappear {
+            networkMonitor.stopMonitoring()
+        }
     }
 }
 

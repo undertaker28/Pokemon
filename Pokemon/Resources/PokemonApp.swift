@@ -11,7 +11,11 @@ import SwiftUI
 struct PokemonApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                PokemonListView()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Pokemons")
+            }
         }
     }
 }
