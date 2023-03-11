@@ -32,7 +32,7 @@ struct PokemonListView: View {
             .environment(\.defaultMinListRowHeight, 50)
             HStack {
                 Button {
-                    // TODO: - Previous page
+                    pokemonListViewModel.dataService.getPage(url: pokemonListViewModel.pokemonListPage?.previous ?? "")
                 } label: {
                     Text("Previous")
                         .font(Font.custom("MarkPro-Bold", size: 18))
@@ -42,7 +42,7 @@ struct PokemonListView: View {
                 .frame(maxWidth: .infinity)
                 Divider()
                 Button {
-                    // TODO: - Next page
+                    pokemonListViewModel.dataService.getPage(url: pokemonListViewModel.pokemonListPage?.next ?? "")
                 } label: {
                     Text("Next")
                         .font(Font.custom("MarkPro-Bold", size: 18))
