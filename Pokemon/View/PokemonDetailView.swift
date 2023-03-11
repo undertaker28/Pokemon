@@ -17,7 +17,7 @@ struct PokemonDetailView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color(.systemRed), Color.white]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")), Color.white]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
             Color.white.offset(y: 340)
@@ -43,7 +43,7 @@ struct PokemonDetailView: View {
                             .font(.subheadline).bold()
                             .foregroundColor(.white)
                             .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
-                            .background(Color(.systemRed))
+                            .background(Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")))
                             .cornerRadius(20)
                     }
                     .padding(.top, -40)
@@ -58,8 +58,6 @@ struct PokemonDetailView: View {
                     }
                     
                     BarsView(height: pokemonDetailViewModel.detail?.height ?? 0, weight: pokemonDetailViewModel.detail?.weight ?? 0)
-                        .padding(.trailing)
-                        .padding(.top, -16)
                 }
             }
         }

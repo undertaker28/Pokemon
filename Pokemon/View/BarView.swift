@@ -21,7 +21,7 @@ struct BarView: View {
 
             HStack {
                 Text("\(value)")
-                    .frame(width: 40)
+                    .frame(width: 45)
                     .padding(.trailing)
 
                 ZStack(alignment: .leading) {
@@ -30,7 +30,7 @@ struct BarView: View {
                         .foregroundColor(Color(.systemGray5))
 
                     Capsule()
-                        .frame(width: value > 250 ? CGFloat(200) : CGFloat(value), height: 20)
+                        .frame(width: value > 180 ? CGFloat(value / 6) : CGFloat(value), height: 20)
                         .foregroundColor(color)
                 }
                 Spacer()
