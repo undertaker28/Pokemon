@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct BarsView: View {
-    let height: Int
-    let weight: Int
+    private(set) var height: Int
+    private(set) var weight: Int
     var body: some View {
         VStack {
             BarView(title: "Height", value: height, color: .orange)

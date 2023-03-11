@@ -36,10 +36,10 @@ struct PokemonDetailView: View {
                 } else {
                     VStack {
                         Text(pokemonDetailViewModel.detail?.name?.capitalized ?? "No name found")
-                            .font(.largeTitle)
+                            .font(Font.custom("MarkPro-Bold", size: 32))
                         
                         Text(pokemonDetailViewModel.detail?.types?[0].type?.name?.capitalized ?? "No type found")
-                            .font(.subheadline).bold()
+                            .font(Font.custom("MarkPro-Bold", size: 24))
                             .foregroundColor(.white)
                             .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
                             .background(Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")))
@@ -50,7 +50,7 @@ struct PokemonDetailView: View {
                     
                     HStack {
                         Text("Stats")
-                            .font(.system(size: 20, weight: .semibold))
+                            .font(Font.custom("MarkPro-Bold", size: 20))
                             .padding(.leading, 30)
                         
                         Spacer()

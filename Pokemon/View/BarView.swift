@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct BarView: View {
-    var title: String = "Attack"
-    var value: Int = 100
-    var color: Color = .blue
+    private(set) var title: String = "Attack"
+    private(set) var value: Int = 100
+    private(set) var color: Color = .blue
 
     var body: some View {
         HStack {
             Text(title)
+                .font(Font.custom("MarkPro-Bold", size: 18))
                 .padding(.leading, 32)
                 .foregroundColor(.gray)
                 .frame(width: 100)
 
             HStack {
                 Text("\(value)")
-                    .frame(width: 45)
+                    .font(Font.custom("MarkPro-Bold", size: 18))
+                    .frame(width: 50)
                     .padding(.trailing)
 
                 ZStack(alignment: .leading) {

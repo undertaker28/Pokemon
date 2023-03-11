@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E95ADC6C29BCD9FD00512E1A /* MarkPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E95ADC6B29BCD9FD00512E1A /* MarkPro-Bold.otf */; };
+		E95ADC6F29BCDBF400512E1A /* WorkSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E95ADC6E29BCDBF400512E1A /* WorkSans-Regular.otf */; };
 		E97EE49729BC7C8C00DEFB5D /* FileSystemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EE49629BC7C8C00DEFB5D /* FileSystemService.swift */; };
 		E97EE49929BC9DCC00DEFB5D /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EE49829BC9DCC00DEFB5D /* NetworkingService.swift */; };
 		E97EE49C29BCA63100DEFB5D /* Error+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EE49B29BCA63100DEFB5D /* Error+Ex.swift */; };
@@ -27,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E95ADC6B29BCD9FD00512E1A /* MarkPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MarkPro-Bold.otf"; sourceTree = "<group>"; };
+		E95ADC6D29BCDA1C00512E1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E95ADC6E29BCDBF400512E1A /* WorkSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Regular.otf"; sourceTree = "<group>"; };
 		E97EE49629BC7C8C00DEFB5D /* FileSystemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemService.swift; sourceTree = "<group>"; };
 		E97EE49829BC9DCC00DEFB5D /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		E97EE49B29BCA63100DEFB5D /* Error+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ex.swift"; sourceTree = "<group>"; };
@@ -58,6 +63,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E95ADC6A29BCD9F200512E1A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E95ADC6B29BCD9FD00512E1A /* MarkPro-Bold.otf */,
+				E95ADC6E29BCDBF400512E1A /* WorkSans-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		E97EE49A29BCA61600DEFB5D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +105,7 @@
 				E9E9F7FE29BBB856001B0E81 /* Services */,
 				E9E9F80F29BBD0D1001B0E81 /* Helpers */,
 				E97EE49A29BCA61600DEFB5D /* Extensions */,
+				E95ADC6A29BCD9F200512E1A /* Fonts */,
 				E9E9F7FA29BBB60F001B0E81 /* Resources */,
 				E9E9F7F229BBB415001B0E81 /* Preview Content */,
 			);
@@ -110,6 +125,7 @@
 			children = (
 				E9E9F7FF29BBB86D001B0E81 /* Assets */,
 				E9E9F7EC29BBB414001B0E81 /* PokemonApp.swift */,
+				E95ADC6D29BCDA1C00512E1A /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -232,7 +248,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95ADC6C29BCD9FD00512E1A /* MarkPro-Bold.otf in Resources */,
 				E9E9F7F429BBB415001B0E81 /* Preview Assets.xcassets in Resources */,
+				E95ADC6F29BCDBF400512E1A /* WorkSans-Regular.otf in Resources */,
 				E9E9F7F129BBB415001B0E81 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +408,7 @@
 				DEVELOPMENT_TEAM = G4T7QK2U75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pokemon/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -419,6 +438,7 @@
 				DEVELOPMENT_TEAM = G4T7QK2U75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pokemon/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
