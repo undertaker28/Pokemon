@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct BarsView: View {
-    let pokemon: PokemonDetail
+    let height: Int
+    let weight: Int
     var body: some View {
         VStack {
-            BarView(title: "Height", value: pokemon.height ?? 0, color: .orange)
-            BarView(title: "Weight", value: pokemon.weight ?? 0, color: .purple)
+            BarView(title: "Height", value: height, color: .orange)
+            BarView(title: "Weight", value: weight, color: .purple)
         }
         .padding()
     }

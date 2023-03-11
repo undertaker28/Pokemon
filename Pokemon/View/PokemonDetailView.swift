@@ -9,46 +9,58 @@ import SwiftUI
 import Kingfisher
 
 struct PokemonDetailView: View {
+    @StateObject private var pokemonDetailViewModel: PokemonDetailViewModel
+    
+    init(url: String) {
+        _pokemonDetailViewModel = StateObject(wrappedValue: PokemonDetailViewModel(url: url))
+    }
+
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color(.systemRed), Color.white]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            Color.white.offset(y: 370)
+            Color.white.offset(y: 340)
             
             VStack {
-                KFImage(URL(string: "https://firebasestorage.googleapis.com/v0/b/pokedex-bb36f.appspot.com/o/pokemon_images%2F2CF15848-AAF9-49C0-90E4-28DC78F60A78?alt=media&token=15ecd49b-89ff-46d6-be0f-1812c948e334"))
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                
-                VStack {
-                    Text("Bulbasaur")
-                        .font(.largeTitle)
-                        .padding(.top, 40)
-                    
-                    Text("Poison")
-                        .font(.subheadline).bold()
-                        .foregroundColor(.white)
-                        .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
-                        .background(Color(.systemRed))
-                        .cornerRadius(20)
-                }
-                .background(Color.white)
-                .cornerRadius(40)
-                .padding(.top, -40)
-                .zIndex(-1)
-                
-                HStack {
-                    Text("Stats")
-                        .font(.system(size: 20, weight: .semibold))
-                        .padding(.leading, 30)
-                    
-                    Spacer()
+                if pokemonDetailViewModel.isLoadingImage {
+                    ProgressView()
+                } else {
+                    Image(uiImage: (pokemonDetailViewModel.image ?? UIImage(systemName: "questionmark.circle"))!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
                 }
                 
-//                BarsView(pokemon: pokemon)
-//                    .padding(.trailing)
-//                    .padding(.top, -16)
+                if pokemonDetailViewModel.isLoading {
+                    ProgressView()
+                } else {
+                    VStack {
+                        Text(pokemonDetailViewModel.detail?.name?.capitalized ?? "No name found")
+                            .font(.largeTitle)
+                        
+                        Text(pokemonDetailViewModel.detail?.types?[0].type?.name?.capitalized ?? "No type found")
+                            .font(.subheadline).bold()
+                            .foregroundColor(.white)
+                            .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
+                            .background(Color(.systemRed))
+                            .cornerRadius(20)
+                    }
+                    .padding(.top, -40)
+                    .zIndex(-1)
+                    
+                    HStack {
+                        Text("Stats")
+                            .font(.system(size: 20, weight: .semibold))
+                            .padding(.leading, 30)
+                        
+                        Spacer()
+                    }
+                    
+                    BarsView(height: pokemonDetailViewModel.detail?.height ?? 0, weight: pokemonDetailViewModel.detail?.weight ?? 0)
+                        .padding(.trailing)
+                        .padding(.top, -16)
+                }
             }
         }
     }
@@ -56,6 +68,6 @@ struct PokemonDetailView: View {
 
 struct PokemonDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetailView()
+        PokemonDetailView(url: "https://pokeapi.co/api/v2/pokemon/25/")
     }
 }

@@ -19,12 +19,15 @@ struct PokemonRow: View {
 }
 
 struct PokemonListView: View {
+    @StateObject var pokemonListViewModel = PokemonListViewModel()
     @StateObject var networkMonitor = NetworkMonitor()
     
     var body: some View {
         VStack {
-            List(1...20, id: \.self) { i in
-                PokemonRow(pokemonName: "Bulbasaur")
+            List(pokemonListViewModel.pokemonListPage?.results ?? [], id: \.url) { pokemon in
+                NavigationLink(destination: PokemonDetailView(url: pokemon.url)) {
+                    PokemonRow(pokemonName: pokemon.name.capitalized)
+                }
             }
             .environment(\.defaultMinListRowHeight, 50)
             HStack {
