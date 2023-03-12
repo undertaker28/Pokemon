@@ -11,7 +11,7 @@ import Combine
 final class PokemonListViewModel: ObservableObject {
     @Published private(set) var pokemonListPage: PokemonList?
     
-    let dataService = PokemonListHelper(url: "https://pokeapi.co/api/v2/pokemon")
+    let dataHelper = PokemonListHelper(url: "https://pokeapi.co/api/v2/pokemon")
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -24,7 +24,7 @@ final class PokemonListViewModel: ObservableObject {
     }
     
     private func addSubscribers() {
-        dataService.$pokemonListPage
+        dataHelper.$pokemonListPage
             .sink { [weak self] returnedPage in
                 self?.pokemonListPage = returnedPage
             }

@@ -28,7 +28,7 @@ struct BarView: View {
                 
                 ProgressBarView(value: $value, color: color)
                     .frame(height: 20)
-
+                
                 Spacer()
             }
             .padding(.leading)
@@ -37,7 +37,7 @@ struct BarView: View {
 }
 
 struct ProgressBarView: View {
-    @Binding var value: Double
+    @Binding private(set) var value: Double
     private(set) var color: Color
     
     var body: some View {

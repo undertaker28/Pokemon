@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PokemonDetailView: View {
     @StateObject private var pokemonDetailViewModel: PokemonDetailViewModel
@@ -13,7 +14,7 @@ struct PokemonDetailView: View {
     init(url: String) {
         _pokemonDetailViewModel = StateObject(wrappedValue: PokemonDetailViewModel(url: url))
     }
-
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")), Color.white]), startPoint: .top, endPoint: .bottom)
@@ -22,14 +23,10 @@ struct PokemonDetailView: View {
             Color.white.offset(y: 340)
             
             VStack {
-                if pokemonDetailViewModel.isLoadingImage {
-                    ProgressView()
-                } else {
-                    Image(uiImage: (pokemonDetailViewModel.image ?? UIImage(systemName: "questionmark.circle"))!)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
-                }
+                KFImage(URL(string: pokemonDetailViewModel.detail?.sprites?.frontDefault ?? ""))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 300, height: 300)
                 
                 if pokemonDetailViewModel.isLoading {
                     ProgressView()
@@ -41,7 +38,7 @@ struct PokemonDetailView: View {
                         Text(pokemonDetailViewModel.detail?.types?[0].type?.name?.capitalized ?? "No type found")
                             .font(Font.custom("MarkPro-Bold", size: 24))
                             .foregroundColor(.white)
-                            .padding(.init(top: 8, leading: 24, bottom: 8, trailing: 24))
+                            .padding(EdgeInsets(top: 8, leading: 24, bottom: 8, trailing: 24))
                             .background(Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")))
                             .cornerRadius(20)
                     }

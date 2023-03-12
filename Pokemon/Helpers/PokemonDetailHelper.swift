@@ -10,10 +10,8 @@ import Combine
 import SwiftUI
 
 final class PokemonDetailHelper {
-    @Published private(set) var image: UIImage? = nil
     @Published private(set) var detail: PokemonDetail?
     
-    var imageSubscription: AnyCancellable?
     var pokemonStatsSubcription: AnyCancellable?
     
     init(url: String) {
@@ -21,25 +19,14 @@ final class PokemonDetailHelper {
     }
     
     func getPokemonDetail(url: String) {
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: url) else {
+            return
+        }
         pokemonStatsSubcription = NetworkingService.download(url: url)
             .decode(type: PokemonDetail.self, decoder: JSONDecoder())
             .sink(receiveCompletion: NetworkingService.handleCompletion, receiveValue: { [weak self] detailValue in
                 self?.detail = detailValue
-                self?.getPokemonImage(url: detailValue.sprites?.frontDefault ?? "")
                 self?.pokemonStatsSubcription?.cancel()
-            })
-    }
-    
-    func getPokemonImage(url: String) {
-        guard let url = URL(string: url) else { return }
-        imageSubscription = NetworkingService.download(url: url)
-            .tryMap({ data -> UIImage? in
-                return UIImage(data: data)
-            })
-            .sink(receiveCompletion: NetworkingService.handleCompletion, receiveValue: { [weak self] returnedImage in
-                self?.image = returnedImage
-                self?.imageSubscription?.cancel()
             })
     }
 }

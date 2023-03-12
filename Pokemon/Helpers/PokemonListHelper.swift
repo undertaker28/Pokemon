@@ -21,10 +21,14 @@ final class PokemonListHelper {
     func getPage(url: String) {
         FileSystemService.instance.createOfflineFileIfNeeded()
         
-        guard let dataOfOfflineDictionary = FileSystemService.instance.getData(fileName: fileName, folderName: folderName) else { return }
+        guard let dataOfOfflineDictionary = FileSystemService.instance.getData(fileName: fileName, folderName: folderName) else {
+            return
+        }
         let offlineDictionary = FileSystemService.instance.dataToDictionary(data: dataOfOfflineDictionary)
         
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: url) else {
+            return
+        }
         
         var loadFlag = false
         for item in offlineDictionary {
@@ -35,7 +39,9 @@ final class PokemonListHelper {
         }
         
         if loadFlag {
-            guard let offlineData = FileSystemService.instance.getData(fileName: offlineDictionary[url.absoluteString] ?? "", folderName: folderName) else { return }
+            guard let offlineData = FileSystemService.instance.getData(fileName: offlineDictionary[url.absoluteString] ?? "", folderName: folderName) else {
+                return
+            }
             do {
                 self.pokemonListPage = try JSONDecoder().decode(PokemonList.self, from: offlineData)
             } catch let error {
