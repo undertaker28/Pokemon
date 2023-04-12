@@ -14,68 +14,80 @@ struct PokemonListView: View {
     
     var body: some View {
         VStack {
-            List((searchText.isEmpty ? pokemonListViewModel.getPokemons() : pokemonListViewModel.getPokemons().filter({ $0.name.contains(searchText.lowercased()) })), id: \.url) { pokemon in
-                NavigationLink(destination: PokemonDetailView(url: pokemon.url)) {
-                    HStack {
-                        Image("Pokeball")
-                        Text(pokemon.name.capitalized)
-                            .font(Font.custom("MarkPro-Bold", size: 18))
+            List((searchText.isEmpty ? pokemonListViewModel.getPokemons() : pokemonListViewModel.getPokemons().filter({ $0.name.contains(searchText.lowercased()) })), id: \.id) { pokemon in
+                NavigationLink(destination: PokemonDetailView(url: Endpoint.pokemon(pokemon.id).url)) {
+                      HStack {
+                          Image(Constants.pokeballImage)
+                          Text(pokemon.name.capitalized)
+                              .font(Font.custom(Constants.fontMarkProBold, size: 18))
+                      }
+                  }
+              }
+            .overlay(
+                VStack {
+                    if pokemonListViewModel.getPokemons()
+                        .filter({ $0.name.contains(searchText.lowercased()) })
+                        .isEmpty && !searchText.isEmpty {
+                        Text(Constants.firstPartOfEmptySearchMessage)
+                        + Text(searchText)
+                            .fontWeight(.heavy)
+                        + Text(Constants.secondPartOfEmptySearchMessage)
                     }
+                    Spacer()
                 }
-            }
-            .searchable(text: $searchText, prompt: "Looking for something...")
+                .multilineTextAlignment(.center)
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .padding(.top)
+            )
             .environment(\.defaultMinListRowHeight, 50)
+            .searchable(text: $searchText, prompt: Constants.placeholder)
             
             HStack {
                 Button {
-                    pokemonListViewModel.dataHelper.getPage(url: pokemonListViewModel.pokemonListPage?.previous ?? "")
+                    if let previousUrlString = pokemonListViewModel.pokemonListPage?.previous,
+                       let previousUrl = URL(string: previousUrlString) {
+                        pokemonListViewModel.dataHelper.getPage(url: previousUrl)
+                    }
                 } label: {
-                    Text("Previous")
-                        .font(Font.custom("WorkSans-Regular", size: 18))
+                    Text(Constants.previous)
+                        .font(Font.custom(Constants.fontWorkSansRegular, size: 18))
                         .fixedSize()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
                 Divider()
                 Button {
-                    pokemonListViewModel.dataHelper.getPage(url: pokemonListViewModel.pokemonListPage?.next ?? "")
+                    if let nextUrlString = pokemonListViewModel.pokemonListPage?.next,
+                       let nextUrl = URL(string: nextUrlString) {
+                        pokemonListViewModel.dataHelper.getPage(url: nextUrl)
+                    }
                 } label: {
-                    Text("Next")
-                        .font(Font.custom("WorkSans-Regular", size: 18))
+                    Text(Constants.next)
+                        .font(Font.custom(Constants.fontWorkSansRegular, size: 18))
                         .fixedSize()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if networkMonitor.isConnected {
-                            HStack(spacing: 10) {
-                                Text("Wi-Fi on")
-                                    .font(Font.custom("MarkPro-Bold", size: 18))
-                                    .foregroundColor(.green)
-                                Image(systemName: "wifi")
-                            }
-                        }
-                        if networkMonitor.isCellular {
-                            HStack(spacing: 10) {
-                                Text("Cellular on")
-                                    .font(Font.custom("MarkPro-Bold", size: 18))
-                                    .foregroundColor(.yellow)
-                                Image(systemName: "antenna.radiowaves.left.and.right")
-                            }
-                        }
-                        if networkMonitor.isDisconnected {
-                            HStack(spacing: 10) {
-                                Text("No connection")
-                                    .font(Font.custom("MarkPro-Bold", size: 18))
-                                    .foregroundColor(.red)
-                                Image(systemName: "wifi.slash")
-                            }
-                        }
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            .foregroundColor(Color(Constants.textTabBar))
+            .background(Color(Constants.background))
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Group {
+                    if networkMonitor.isConnected {
+                        pokemonListViewModel.toolbarItem(Constants.wifiOn, Constants.wifiImage, .green)
+                    }
+                    if networkMonitor.isCellular {
+                        pokemonListViewModel.toolbarItem(Constants.cellularOn, Constants.cellularImage, .yellow)
+                    }
+                    if networkMonitor.isDisconnected {
+                        pokemonListViewModel.toolbarItem(Constants.noConnection, Constants.noConnectionImage, .red)
                     }
                 }
             }
-            .fixedSize(horizontal: false, vertical: true)
         }
         .onAppear {
             networkMonitor.startMonitoring()

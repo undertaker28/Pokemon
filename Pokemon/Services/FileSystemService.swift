@@ -8,9 +8,8 @@
 import Foundation
 
 final class FileSystemService {
-    static let instance = FileSystemService()
-    private let folderName = "pokemonCash"
-    private let fileName = "pokemonOfflineData"
+    private let folderName = Constants.folderName
+    private let fileName = Constants.fileName
     private let fileManager = FileManager.default
     
     func saveData(dataToSave: Data, fileName: String, folderName: String) {
@@ -26,42 +25,28 @@ final class FileSystemService {
               fileManager.fileExists(atPath: url.path) else {
             return nil
         }
-        var dataFile: Data? = nil
-        do {
-            try dataFile = Data(contentsOf: url)
-        } catch let error {
-            print("Error get data \(error)")
-        }
-        return dataFile
+        return try? Data(contentsOf: url)
     }
     
-    func dataToDictionary(data: Data) -> [String: String] {
-        var JSONDictionary: [String: String] = [:]
-        do {
-            JSONDictionary = try JSONSerialization.jsonObject(with: data) as! [String: String]
-        } catch let error {
-            print(error.localizedDescription)
+    func dataToDictionary(data: Data) -> [String: String]? {
+        guard let dictionary = try? JSONSerialization.jsonObject(with: data) as? [String: String] else {
+            return nil
         }
-        return JSONDictionary
+        return dictionary
     }
     
     func dictionaryToData(dictionary: [String: String]) -> Data? {
-        var JSONData: Data?
-        do {
-            JSONData = try JSONSerialization.data(withJSONObject: dictionary)
-        } catch let error {
-            print(error.localizedDescription)
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: dictionary) else {
+            return nil
         }
-        return JSONData
+        return jsonData
     }
     
     func createOfflineFileIfNeeded() {
         createFolderIfNeeded(folderName: folderName)
-        if getData(fileName: fileName, folderName: folderName) == nil {
-            let emptyDictionary: [String: String] = [:]
-            if let data = dictionaryToData(dictionary: emptyDictionary) {
-                saveData(dataToSave: data, fileName: fileName, folderName: folderName)
-            }
+        let emptyDictionary: [String: String] = [:]
+        if let data = dictionaryToData(dictionary: emptyDictionary), getData(fileName: fileName, folderName: folderName) == nil {
+            saveData(dataToSave: data, fileName: fileName, folderName: folderName)
         }
     }
     
@@ -92,3 +77,4 @@ final class FileSystemService {
         return folderURL.appendingPathComponent(fileName)
     }
 }
+

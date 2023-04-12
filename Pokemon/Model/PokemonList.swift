@@ -19,3 +19,8 @@ struct PokemonInfo: Codable {
     let name: String
     let url: String
 }
+
+struct PokemonMappingInfo: Codable {
+    let id: Int
+    let name: String
+}

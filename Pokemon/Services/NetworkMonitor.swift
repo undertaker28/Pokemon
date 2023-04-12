@@ -6,29 +6,26 @@
 //
 
 import Foundation
-import Network
+import Alamofire
 
 final class NetworkMonitor: ObservableObject {
     @Published private(set) var isConnected = false
     @Published private(set) var isCellular = false
     @Published private(set) var isDisconnected = false
     
-    private let networkMonitor = NWPathMonitor()
-    private let workerQueue = DispatchQueue.global()
+    private let reachabilityManager = NetworkReachabilityManager()
     
     public func startMonitoring() {
-        networkMonitor.pathUpdateHandler = { [weak self] path in
+        reachabilityManager?.startListening(onUpdatePerforming: { [weak self] status in
             DispatchQueue.main.async {
-                self?.isConnected = path.usesInterfaceType(.wifi)
-                self?.isDisconnected = path.status == .unsatisfied
-                self?.isCellular = path.usesInterfaceType(.cellular)
+                self?.isConnected = status == .reachable(.ethernetOrWiFi)
+                self?.isCellular = status == .reachable(.cellular)
+                self?.isDisconnected = status == .notReachable
             }
-        }
-        
-        networkMonitor.start(queue: workerQueue)
+        })
     }
     
     public func stopMonitoring() {
-        networkMonitor.cancel()
+        reachabilityManager?.stopListening()
     }
 }

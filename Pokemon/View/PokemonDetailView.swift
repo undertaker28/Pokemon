@@ -11,16 +11,16 @@ import Kingfisher
 struct PokemonDetailView: View {
     @StateObject private var pokemonDetailViewModel: PokemonDetailViewModel
     
-    init(url: String) {
+    init(url: URL) {
         _pokemonDetailViewModel = StateObject(wrappedValue: PokemonDetailViewModel(url: url))
     }
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")), Color.white]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? Constants.noNameFound)), Color.white]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            Color.white.offset(y: 340)
+            Color(Constants.background).offset(y: 340)
             
             VStack {
                 KFImage(URL(string: pokemonDetailViewModel.detail?.sprites?.frontDefault ?? ""))
@@ -32,22 +32,22 @@ struct PokemonDetailView: View {
                     ProgressView()
                 } else {
                     VStack {
-                        Text(pokemonDetailViewModel.detail?.name?.capitalized ?? "No name found")
-                            .font(Font.custom("MarkPro-Bold", size: 32))
+                        Text(pokemonDetailViewModel.detail?.name?.capitalized ?? Constants.noNameFound)
+                            .font(Font.custom(Constants.fontMarkProBold, size: 32))
                         
-                        Text(pokemonDetailViewModel.detail?.types?[0].type?.name?.capitalized ?? "No type found")
-                            .font(Font.custom("MarkPro-Bold", size: 24))
+                        Text(pokemonDetailViewModel.detail?.types?[0].type?.name?.capitalized ?? Constants.noTypeFound)
+                            .font(Font.custom(Constants.fontMarkProBold, size: 24))
                             .foregroundColor(.white)
                             .padding(EdgeInsets(top: 8, leading: 24, bottom: 8, trailing: 24))
-                            .background(Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? "No name found")))
+                            .background(Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? Constants.noNameFound)))
                             .cornerRadius(20)
                     }
                     .padding(.top, -40)
                     .zIndex(-1)
                     
                     HStack {
-                        Text("Stats")
-                            .font(Font.custom("MarkPro-Bold", size: 20))
+                        Text(Constants.stats)
+                            .font(Font.custom(Constants.fontMarkProBold, size: 20))
                             .padding(.leading, 30)
                         
                         Spacer()
@@ -62,6 +62,6 @@ struct PokemonDetailView: View {
 
 struct PokemonDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetailView(url: "https://pokeapi.co/api/v2/pokemon/13/")
+        PokemonDetailView(url: Endpoint.pokemon(13).url)
     }
 }

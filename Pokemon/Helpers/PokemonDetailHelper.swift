@@ -14,14 +14,11 @@ final class PokemonDetailHelper {
     
     var pokemonStatsSubcription: AnyCancellable?
     
-    init(url: String) {
+    init(url: URL) {
         getPokemonDetail(url: url)
     }
     
-    func getPokemonDetail(url: String) {
-        guard let url = URL(string: url) else {
-            return
-        }
+    func getPokemonDetail(url: URL) {
         pokemonStatsSubcription = NetworkingService.download(url: url)
             .decode(type: PokemonDetail.self, decoder: JSONDecoder())
             .sink(receiveCompletion: NetworkingService.handleCompletion, receiveValue: { [weak self] detailValue in

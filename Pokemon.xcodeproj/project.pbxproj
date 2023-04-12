@@ -18,6 +18,10 @@
 		E97EE4A429BCB6A600DEFB5D /* PokemonDetailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EE4A329BCB6A600DEFB5D /* PokemonDetailHelper.swift */; };
 		E9A8D97929BDE6250013BFF8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E9A8D97829BDE6250013BFF8 /* Kingfisher */; };
 		E9BA9C0629BD120A00A1DACE /* BarsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA9C0529BD120A00A1DACE /* BarsViewModel.swift */; };
+		E9BD915529E5E5830085F01B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E9BD915429E5E5830085F01B /* Alamofire */; };
+		E9BD915B29E5EB5E0085F01B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD915A29E5EB5E0085F01B /* Constants.swift */; };
+		E9BD915D29E5F8C20085F01B /* PokemonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BD915C29E5F8C20085F01B /* PokemonAPI.swift */; };
+		E9BD916529E628110085F01B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9BD916429E628110085F01B /* Colors.xcassets */; };
 		E9E9F7ED29BBB414001B0E81 /* PokemonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9F7EC29BBB414001B0E81 /* PokemonApp.swift */; };
 		E9E9F7F129BBB415001B0E81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9E9F7F029BBB415001B0E81 /* Assets.xcassets */; };
 		E9E9F7F429BBB415001B0E81 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9E9F7F329BBB415001B0E81 /* Preview Assets.xcassets */; };
@@ -42,6 +46,9 @@
 		E97EE4A129BCB5F800DEFB5D /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		E97EE4A329BCB6A600DEFB5D /* PokemonDetailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailHelper.swift; sourceTree = "<group>"; };
 		E9BA9C0529BD120A00A1DACE /* BarsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarsViewModel.swift; sourceTree = "<group>"; };
+		E9BD915A29E5EB5E0085F01B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E9BD915C29E5F8C20085F01B /* PokemonAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAPI.swift; sourceTree = "<group>"; };
+		E9BD916429E628110085F01B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		E9E9F7E929BBB414001B0E81 /* Pokemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E9F7EC29BBB414001B0E81 /* PokemonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonApp.swift; sourceTree = "<group>"; };
 		E9E9F7F029BBB415001B0E81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9A8D97929BDE6250013BFF8 /* Kingfisher in Frameworks */,
+				E9BD915529E5E5830085F01B /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +137,7 @@
 			children = (
 				E9E9F7FF29BBB86D001B0E81 /* Assets */,
 				E9E9F7EC29BBB414001B0E81 /* PokemonApp.swift */,
+				E9BD915A29E5EB5E0085F01B /* Constants.swift */,
 				E95ADC6D29BCDA1C00512E1A /* Info.plist */,
 			);
 			path = Resources;
@@ -178,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				E9E9F7F029BBB415001B0E81 /* Assets.xcassets */,
+				E9BD916429E628110085F01B /* Colors.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -187,6 +197,7 @@
 			children = (
 				E97EE49D29BCAFFF00DEFB5D /* PokemonListHelper.swift */,
 				E97EE4A329BCB6A600DEFB5D /* PokemonDetailHelper.swift */,
+				E9BD915C29E5F8C20085F01B /* PokemonAPI.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -209,6 +220,7 @@
 			name = Pokemon;
 			packageProductDependencies = (
 				E9A8D97829BDE6250013BFF8 /* Kingfisher */,
+				E9BD915429E5E5830085F01B /* Alamofire */,
 			);
 			productName = Pokemon;
 			productReference = E9E9F7E929BBB414001B0E81 /* Pokemon.app */;
@@ -240,6 +252,7 @@
 			mainGroup = E9E9F7E029BBB414001B0E81;
 			packageReferences = (
 				E9A8D97729BDE6250013BFF8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E9BD915329E5E5830085F01B /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E9E9F7EA29BBB414001B0E81 /* Products */;
 			projectDirPath = "";
@@ -255,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9BD916529E628110085F01B /* Colors.xcassets in Resources */,
 				E95ADC6C29BCD9FD00512E1A /* MarkPro-Bold.otf in Resources */,
 				E9E9F7F429BBB415001B0E81 /* Preview Assets.xcassets in Resources */,
 				E95ADC6F29BCDBF400512E1A /* WorkSans-Regular.otf in Resources */,
@@ -270,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E9F80C29BBCD1D001B0E81 /* BarView.swift in Sources */,
+				E9BD915B29E5EB5E0085F01B /* Constants.swift in Sources */,
 				E9E9F80529BBC046001B0E81 /* PokemonListView.swift in Sources */,
 				E9BA9C0629BD120A00A1DACE /* BarsViewModel.swift in Sources */,
 				E9E9F80729BBC5CF001B0E81 /* PokemonDetailView.swift in Sources */,
@@ -282,6 +297,7 @@
 				E97EE49E29BCAFFF00DEFB5D /* PokemonListHelper.swift in Sources */,
 				E97EE49C29BCA63100DEFB5D /* Error+Ex.swift in Sources */,
 				E9E9F81129BBD102001B0E81 /* NetworkMonitor.swift in Sources */,
+				E9BD915D29E5F8C20085F01B /* PokemonAPI.swift in Sources */,
 				E97EE4A229BCB5F800DEFB5D /* PokemonDetailViewModel.swift in Sources */,
 				E9E9F80129BBBB05001B0E81 /* PokemonList.swift in Sources */,
 				E97EE49729BC7C8C00DEFB5D /* FileSystemService.swift in Sources */,
@@ -497,6 +513,14 @@
 				kind = branch;
 			};
 		};
+		E9BD915329E5E5830085F01B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -504,6 +528,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9A8D97729BDE6250013BFF8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E9BD915429E5E5830085F01B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9BD915329E5E5830085F01B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

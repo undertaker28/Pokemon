@@ -26,12 +26,12 @@ final class NetworkingService {
     }
     
     static func handleURLResponse(output: URLSession.DataTaskPublisher.Output, url: URL) throws -> Data {
-        let folderName = "pokemonCash"
+        let folderName = Constants.folderName
         if let response = output.response as? HTTPURLResponse,
            response.statusCode < 200 && response.statusCode >= 300 {
             throw NetworkingErrors.init(code: response.statusCode, url: url)
         }
-        FileSystemService.instance.saveData(dataToSave: output.data, fileName: String(output.data.count), folderName: folderName)
+        FileSystemService().saveData(dataToSave: output.data, fileName: String(output.data.count), folderName: folderName)
         return output.data
     }
     

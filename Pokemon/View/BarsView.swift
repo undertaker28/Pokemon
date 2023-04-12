@@ -14,8 +14,8 @@ struct BarsView: View {
     
     var body: some View {
         VStack {
-            BarView(value: barsViewModel.convertHeightToCm(height: height), title: "Height", color: .purple)
-            BarView(value: barsViewModel.convertWeightToKg(weight: weight), title: "Weight", color: .blue)
+            BarView(value: barsViewModel.convertHeightToCm(height: height), title: Constants.height, color: .purple)
+            BarView(value: barsViewModel.convertWeightToKg(weight: weight), title: Constants.weight, color: .blue)
         }
         .padding()
     }

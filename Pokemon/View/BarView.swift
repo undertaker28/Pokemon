@@ -9,20 +9,20 @@ import SwiftUI
 
 struct BarView: View {
     @State private(set) var value: Double = 100.0
-    private(set) var title: String = "Attack"
+    private(set) var title: String = ""
     private(set) var color: Color = .blue
     
     var body: some View {
         HStack {
             Text(title)
-                .font(Font.custom("MarkPro-Bold", size: 18))
+                .font(Font.custom(Constants.fontMarkProBold, size: 18))
                 .padding(.leading, 32)
                 .foregroundColor(.gray)
                 .frame(width: 100)
             
             HStack {
-                Text(floor(value) == value ? "\(Int(value))" : String(format: "%.1f", value))
-                    .font(Font.custom("MarkPro-Bold", size: 18))
+                Text(String(format: floor(value) == value ? "%.0f" : "%.1f", value))
+                    .font(Font.custom(Constants.fontMarkProBold, size: 18))
                     .frame(width: 50)
                     .padding(.trailing)
                 

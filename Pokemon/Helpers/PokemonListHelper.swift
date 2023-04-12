@@ -11,49 +11,42 @@ import Combine
 final class PokemonListHelper {
     @Published private(set) var pokemonListPage: PokemonList? = nil
     private var pokemonListPageSubscription: AnyCancellable?
-    private let folderName = "pokemonCash"
-    private let fileName = "pokemonOfflineData"
-    
-    init(url: String) {
+    private let folderName = Constants.folderName
+    private let fileName = Constants.fileName
+    private let fileSystemService = FileSystemService()
+
+    init(url: URL) {
         getPage(url: url)
     }
-    
-    func getPage(url: String) {
-        FileSystemService.instance.createOfflineFileIfNeeded()
-        
-        guard let dataOfOfflineDictionary = FileSystemService.instance.getData(fileName: fileName, folderName: folderName) else {
+
+    func getPage(url: URL) {
+        fileSystemService.createOfflineFileIfNeeded()
+
+        guard let dataOfOfflineDictionary = FileSystemService().getData(fileName: fileName, folderName: folderName) else {
             return
         }
-        let offlineDictionary = FileSystemService.instance.dataToDictionary(data: dataOfOfflineDictionary)
-        
-        guard let url = URL(string: url) else {
-            return
-        }
-        
-        var loadFlag = false
-        for item in offlineDictionary {
-            if item.key == url.absoluteString {
-                // MARK: - The page is already in the dictionary
-                loadFlag = true
-            }
-        }
-        
-        if loadFlag {
-            guard let offlineData = FileSystemService.instance.getData(fileName: offlineDictionary[url.absoluteString] ?? "", folderName: folderName) else {
-                return
-            }
+        var offlineDictionary = FileSystemService().dataToDictionary(data: dataOfOfflineDictionary)
+
+        if let offlineDataFileName = offlineDictionary?[url.absoluteString],
+           let offlineData = fileSystemService.getData(fileName: offlineDataFileName, folderName: folderName) {
             do {
                 self.pokemonListPage = try JSONDecoder().decode(PokemonList.self, from: offlineData)
+                return
             } catch let error {
                 print(error.localizedDescription)
             }
-        } else {
-            pokemonListPageSubscription = NetworkingService.download(url: url)
-                .decode(type: PokemonList.self, decoder: JSONDecoder())
-                .sink(receiveCompletion: NetworkingService.handleCompletion, receiveValue: { [weak self] pageValue in
-                    self?.pokemonListPage = pageValue
-                    self?.pokemonListPageSubscription?.cancel()
-                })
         }
+
+        pokemonListPageSubscription = NetworkingService.download(url: url)
+            .decode(type: PokemonList.self, decoder: JSONDecoder())
+            .sink(receiveCompletion: NetworkingService.handleCompletion, receiveValue: { [weak self] pageValue in
+                self?.pokemonListPage = pageValue
+                print(url.absoluteString.hashValue)
+                offlineDictionary?[url.absoluteString] = "\(url.absoluteString.hashValue)"
+                if let dictionaryData = self?.fileSystemService.dictionaryToData(dictionary: offlineDictionary ?? [:]) {
+                    self?.fileSystemService.saveData(dataToSave: dictionaryData, fileName: self?.fileName ?? "", folderName: self?.folderName ?? "")
+                }
+                self?.pokemonListPageSubscription?.cancel()
+            })
     }
 }

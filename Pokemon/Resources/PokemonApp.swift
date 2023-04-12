@@ -14,7 +14,7 @@ struct PokemonApp: App {
             NavigationView {
                 PokemonListView()
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Pokemons")
+                    .navigationTitle(Constants.navigationTitle)
             }
         }
     }

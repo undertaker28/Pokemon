@@ -17,13 +17,13 @@ final class PokemonDetailViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(url: String) {
+    init(url: URL) {
         self.dataHelper = PokemonDetailHelper(url: url)
         addSubscribers()
         self.isLoading = true
     }
     
-    func addSubscribers() {
+    private func addSubscribers() {
         dataHelper.$detail
             .sink { [weak self] returnedDetail in
                 self?.detail = returnedDetail
