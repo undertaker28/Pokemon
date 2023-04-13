@@ -11,7 +11,6 @@ import Foundation
 
 final class PokemonListViewModel: ObservableObject {
     @Published private(set) var pokemonListPage: PokemonList?
-    private(set) var pokemonMappingArray = [PokemonMappingInfo]()
     
     let dataHelper = PokemonListHelper(url: Endpoint.pokemons.url)
     
@@ -22,10 +21,8 @@ final class PokemonListViewModel: ObservableObject {
     }
     
     func getPokemons() -> [PokemonMappingInfo] {
-        if let pokemonListPage = pokemonListPage {
-            pokemonMappingArray = pokemonListPage.results.compactMap { PokemonMappingInfo(id: getPokemonId(from: $0.url) ?? 0, name: $0.name) }
-        }
-        return pokemonMappingArray
+        guard let pokemonListPage = pokemonListPage else { return [] }
+        return pokemonListPage.results.compactMap { PokemonMappingInfo(id: getPokemonId(from: $0.url) ?? 0, name: $0.name) }
     }
     
     private func getPokemonId(from url: String) -> Int? {
@@ -36,19 +33,13 @@ final class PokemonListViewModel: ObservableObject {
     }
     
     private func addSubscribers() {
-        dataHelper.$pokemonListPage
-            .sink { [weak self] returnedPage in
-                self?.pokemonListPage = returnedPage
-            }
+        dataHelper.$pokemonList
+            .map { $0 }
+            .assign(to: \.pokemonListPage, on: self)
             .store(in: &cancellables)
     }
     
-    func toolbarItem(_ text: String, _ imageName: String, _ color: Color) -> some View {
-        HStack(spacing: 10) {
-            Text(text)
-                .font(Font.custom(Constants.fontMarkProBold, size: 18))
-                .foregroundColor(color)
-            Image(systemName: imageName)
-        }
+    func getFilteredPokemons(searchText: String) -> [PokemonMappingInfo] {
+        return searchText.isEmpty ? getPokemons() : getPokemons().filter { $0.name.contains(searchText.lowercased()) }
     }
 }

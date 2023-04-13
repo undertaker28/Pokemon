@@ -14,7 +14,7 @@ struct PokemonListView: View {
     
     var body: some View {
         VStack {
-            List((searchText.isEmpty ? pokemonListViewModel.getPokemons() : pokemonListViewModel.getPokemons().filter({ $0.name.contains(searchText.lowercased()) })), id: \.id) { pokemon in
+            List(pokemonListViewModel.getFilteredPokemons(searchText: searchText), id: \.id) { pokemon in
                 NavigationLink(destination: PokemonDetailView(url: Endpoint.pokemon(pokemon.id).url)) {
                       HStack {
                           Image(Constants.pokeballImage)
@@ -44,31 +44,9 @@ struct PokemonListView: View {
             .searchable(text: $searchText, prompt: Constants.placeholder)
             
             HStack {
-                Button {
-                    if let previousUrlString = pokemonListViewModel.pokemonListPage?.previous,
-                       let previousUrl = URL(string: previousUrlString) {
-                        pokemonListViewModel.dataHelper.getPage(url: previousUrl)
-                    }
-                } label: {
-                    Text(Constants.previous)
-                        .font(Font.custom(Constants.fontWorkSansRegular, size: 18))
-                        .fixedSize()
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
+                ButtonView(for: pokemonListViewModel.pokemonListPage?.previous, label: Constants.previous)
                 Divider()
-                Button {
-                    if let nextUrlString = pokemonListViewModel.pokemonListPage?.next,
-                       let nextUrl = URL(string: nextUrlString) {
-                        pokemonListViewModel.dataHelper.getPage(url: nextUrl)
-                    }
-                } label: {
-                    Text(Constants.next)
-                        .font(Font.custom(Constants.fontWorkSansRegular, size: 18))
-                        .fixedSize()
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
+                ButtonView(for: pokemonListViewModel.pokemonListPage?.next, label: Constants.next)
             }
             .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(Color(Constants.textTabBar))
@@ -78,13 +56,13 @@ struct PokemonListView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Group {
                     if networkMonitor.isConnected {
-                        pokemonListViewModel.toolbarItem(Constants.wifiOn, Constants.wifiImage, .green)
+                        ToolbarItemView(Constants.wifiOn, Constants.wifiImage, .green)
                     }
                     if networkMonitor.isCellular {
-                        pokemonListViewModel.toolbarItem(Constants.cellularOn, Constants.cellularImage, .yellow)
+                        ToolbarItemView(Constants.cellularOn, Constants.cellularImage, .yellow)
                     }
                     if networkMonitor.isDisconnected {
-                        pokemonListViewModel.toolbarItem(Constants.noConnection, Constants.noConnectionImage, .red)
+                        ToolbarItemView(Constants.noConnection, Constants.noConnectionImage, .red)
                     }
                 }
             }
@@ -94,6 +72,32 @@ struct PokemonListView: View {
         }
         .onDisappear {
             networkMonitor.stopMonitoring()
+        }
+    }
+    
+    @ViewBuilder
+    private func ButtonView(for url: String?, label: String) -> some View {
+        Button {
+            if let urlString = url,
+               let pageUrl = URL(string: urlString) {
+                pokemonListViewModel.dataHelper.downloadPage(url: pageUrl)
+            }
+        } label: {
+            Text(label)
+                .font(Font.custom(Constants.fontWorkSansRegular, size: 18))
+                .fixedSize()
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    private func ToolbarItemView(_ text: String, _ imageName: String, _ color: Color) -> some View {
+        HStack(spacing: 10) {
+            Text(text)
+                .font(Font.custom(Constants.fontMarkProBold, size: 18))
+                .foregroundColor(color)
+            Image(systemName: imageName)
         }
     }
 }

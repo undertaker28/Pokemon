@@ -12,7 +12,7 @@ import SwiftUI
 final class PokemonDetailHelper {
     @Published private(set) var detail: PokemonDetail?
     
-    var pokemonStatsSubcription: AnyCancellable?
+    private var pokemonStatsSubcription: AnyCancellable?
     
     init(url: URL) {
         getPokemonDetail(url: url)
