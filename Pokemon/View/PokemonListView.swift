@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Alamofire
 
 struct PokemonListView: View {
     @StateObject private var pokemonListViewModel = PokemonListViewModel()
-    @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var networkMonitor = NetworkMonitor(reachabilityManager: NetworkReachabilityManager())
     @State private var searchText: String = ""
     
     var body: some View {
@@ -22,10 +23,13 @@ struct PokemonListView: View {
                               .font(Font.custom(Constants.fontMarkProBold, size: 18))
                       }
                   }
+                .onAppear {
+                    pokemonListViewModel.loadMoreContentIfNeeded(currentItem: pokemon)
+                  }
               }
             .overlay(
                 VStack {
-                    if pokemonListViewModel.getPokemons()
+                    if pokemonListViewModel.pokemons
                         .filter({ $0.name.contains(searchText.lowercased()) })
                         .isEmpty && !searchText.isEmpty {
                         Text(Constants.firstPartOfEmptySearchMessage)
@@ -42,15 +46,6 @@ struct PokemonListView: View {
             )
             .environment(\.defaultMinListRowHeight, 50)
             .searchable(text: $searchText, prompt: Constants.placeholder)
-            
-            HStack {
-                ButtonView(for: pokemonListViewModel.pokemonListPage?.previous, label: Constants.previous)
-                Divider()
-                ButtonView(for: pokemonListViewModel.pokemonListPage?.next, label: Constants.next)
-            }
-            .fixedSize(horizontal: false, vertical: true)
-            .foregroundColor(Color(Constants.textTabBar))
-            .background(Color(Constants.background))
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -73,22 +68,6 @@ struct PokemonListView: View {
         .onDisappear {
             networkMonitor.stopMonitoring()
         }
-    }
-    
-    @ViewBuilder
-    private func ButtonView(for url: String?, label: String) -> some View {
-        Button {
-            if let urlString = url,
-               let pageUrl = URL(string: urlString) {
-                pokemonListViewModel.dataHelper.downloadPage(url: pageUrl)
-            }
-        } label: {
-            Text(label)
-                .font(Font.custom(Constants.fontWorkSansRegular, size: 18))
-                .fixedSize()
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
     }
     
     @ViewBuilder

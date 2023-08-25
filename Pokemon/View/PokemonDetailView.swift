@@ -20,13 +20,16 @@ struct PokemonDetailView: View {
             LinearGradient(gradient: Gradient(colors: [Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? Constants.noNameFound)), Color.white]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            Color(Constants.background).offset(y: 340)
+            Color(Constants.background)
+                .cornerRadius(15, corners: [.topLeft, .topRight])
+                .padding(.top, 340)
+                .ignoresSafeArea()
             
             VStack {
                 KFImage(URL(string: pokemonDetailViewModel.detail?.sprites?.frontDefault ?? ""))
                     .resizable()
-                    .scaledToFit()
-                    .frame(width: 300, height: 300)
+                    .scaledToFill()
+                    .frame(width: 300, height: 200)
                 
                 if pokemonDetailViewModel.isLoading {
                     ProgressView()
@@ -42,7 +45,6 @@ struct PokemonDetailView: View {
                             .background(Color(pokemonDetailViewModel.backgroundColor(forType: pokemonDetailViewModel.detail?.types?[0].type?.name ?? Constants.noNameFound)))
                             .cornerRadius(20)
                     }
-                    .padding(.top, -40)
                     .zIndex(-1)
                     
                     HStack {
@@ -53,7 +55,7 @@ struct PokemonDetailView: View {
                         Spacer()
                     }
                     
-                    BarsView(height: pokemonDetailViewModel.detail?.height ?? 0, weight: pokemonDetailViewModel.detail?.weight ?? 0)
+                    BarsView(barsViewModel: BarsViewModel(), height: pokemonDetailViewModel.detail?.height ?? 0, weight: pokemonDetailViewModel.detail?.weight ?? 0)
                 }
             }
         }
@@ -62,6 +64,6 @@ struct PokemonDetailView: View {
 
 struct PokemonDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetailView(url: Endpoint.pokemon(13).url)
+        PokemonDetailView(url: Endpoint.pokemon(15).url)
     }
 }

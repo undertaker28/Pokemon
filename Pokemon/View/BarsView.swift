@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct BarsView: View {
-    private(set) var barsViewModel = BarsViewModel()
+    private(set) var barsViewModel: BarsViewModel
     private(set) var height: Int
     private(set) var weight: Int
+    
+    init(barsViewModel: BarsViewModel, height: Int, weight: Int) {
+        self.barsViewModel = barsViewModel
+        self.height = height
+        self.weight = weight
+    }
     
     var body: some View {
         VStack {

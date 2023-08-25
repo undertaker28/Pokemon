@@ -13,10 +13,13 @@ final class PokemonListHelper {
     private var pokemonListPageSubscription: AnyCancellable?
     private let folderName = Constants.folderName
     private let fileName = Constants.fileName
-    private let fileSystemService = FileSystemService()
+    private let fileSystemService: FileSystemService
+    private let networkingService: NetworkingService
 
-    init(url: URL) {
-        downloadPage(url: url)
+    init(url: URL, fileSystemService: FileSystemService, networkingService: NetworkingService) {
+        self.fileSystemService = fileSystemService
+        self.networkingService = networkingService
+        self.downloadPage(url: url)
     }
 
     // Downloads a page of the PokemonList from the provided URL
@@ -42,9 +45,9 @@ final class PokemonListHelper {
         }
 
         // If the page isn't in the offline data dictionary, download it and save it to the file system
-        pokemonListPageSubscription = NetworkingService.download(url: url)
+        pokemonListPageSubscription = networkingService.download(url: url)
             .decode(type: PokemonList.self, decoder: JSONDecoder())
-            .sink(receiveCompletion: NetworkingService.handleCompletion, receiveValue: { [weak self] pokemonListPage in
+            .sink(receiveCompletion: networkingService.handleCompletion, receiveValue: { [weak self] pokemonListPage in
                 self?.pokemonList = pokemonListPage
 
                 // Generate a unique hash for this URL and use it as the filename for the offline data file

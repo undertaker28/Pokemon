@@ -16,6 +16,7 @@ struct PokemonApp: App {
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle(Constants.navigationTitle)
             }
+            .tint(Color(Constants.background))
         }
     }
 }

@@ -7,7 +7,15 @@
 
 import Foundation
 
-final class FileSystemService {
+protocol FileSystemService {
+    func saveData(dataToSave: Data, fileName: String, folderName: String)
+    func getData(fileName: String, folderName: String) -> Data?
+    func dataToDictionary(data: Data) -> [String: String]?
+    func dictionaryToData(dictionary: [String: String]) -> Data?
+    func createOfflineFileIfNeeded()
+}
+
+final class FileSystemServiceImpl: FileSystemService {
     private let folderName = Constants.folderName
     private let fileName = Constants.fileName
     private let fileManager = FileManager.default

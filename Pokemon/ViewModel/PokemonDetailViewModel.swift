@@ -18,7 +18,7 @@ final class PokemonDetailViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init(url: URL) {
-        self.dataHelper = PokemonDetailHelper(url: url)
+        self.dataHelper = PokemonDetailHelper(url: url, networkingService: NetworkingServiceImpl(fileSystemService: FileSystemServiceImpl()))
         addSubscribers()
         self.isLoading = true
     }

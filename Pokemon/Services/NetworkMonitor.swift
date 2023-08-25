@@ -13,7 +13,11 @@ final class NetworkMonitor: ObservableObject {
     @Published private(set) var isCellular = false
     @Published private(set) var isDisconnected = false
     
-    private let reachabilityManager = NetworkReachabilityManager()
+    private let reachabilityManager: NetworkReachabilityManager?
+    
+    init(reachabilityManager: NetworkReachabilityManager?) {
+        self.reachabilityManager = reachabilityManager
+    }
     
     public func startMonitoring() {
         reachabilityManager?.startListening(onUpdatePerforming: { [weak self] status in
